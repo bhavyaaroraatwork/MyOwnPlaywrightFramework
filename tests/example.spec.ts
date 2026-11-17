@@ -1,23 +1,30 @@
 import { test, expect } from '@playwright/test';
-
-test('Bhavya s first testcase', async ({ page }) => {
+import { captureScreenshot } from '../utils/utils.js';
+test('Bhavya s first testcase', async ({ page},testInfo ) => {
   await page.goto('https://www.saucedemo.com/');
+   await captureScreenshot(
+        page,
+        testInfo,
+        'Page load Successful'
+    );
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Swag/);
   await page.getByPlaceholder('Username').fill('standard_user');
   await page.getByPlaceholder('Password').fill('secret_sauce');
   await page.getByRole('button',{ name:'Login'}).click();
-  await page.screenshot({
-        path: 'screenshots/test1.png',
-        fullPage: true
-    });
+   await captureScreenshot(
+        page,
+        testInfo,
+        'Click successful'
+    );
   await expect(page).toHaveURL(/inventory\.html/);
   await expect(page.locator('.title')).toHaveText('Products');
-  await page.screenshot({
-        path: 'screenshots/test2.png',
-        fullPage: true
-    });
+   await captureScreenshot(
+        page,
+        testInfo,
+        'Test completely successfully'
+    );
   
 });
 
